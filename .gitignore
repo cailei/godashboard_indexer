@@ -1,0 +1,4 @@
+_bin
+_obj
+indexer/indexer
+*.sublime-workspace

@@ -1,0 +1,22 @@
+{
+    "folders":
+    [
+        {
+            "path": ".",
+            "file_include_patterns":
+            [
+                "README.md",
+                "LICENSE",
+                "*.go",
+                ".gitignore",
+                "*.sublime-project",
+                "*.py"
+            ],
+            "folder_exclude_patterns":
+            [
+                "_bin",
+                "_obj"
+            ]
+        }
+    ]
+}
