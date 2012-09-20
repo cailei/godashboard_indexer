@@ -41,7 +41,10 @@ func main() {
 
     // parse flags
     var proxy_addr string
-    flag.StringVar(&proxy_addr, "proxy", "", "use proxy to access the server")
+    var help bool
+    flag.StringVar(&proxy_addr, "socks5-proxy", "", "use proxy to access the server")
+    flag.StringVar(&help, "help", false, "show help")
+    flag.StringVar(&help, "h", false, "show help")
     flag.Usage = print_usage
     flag.Parse()
 
@@ -99,14 +102,10 @@ func get_http_client(proxy_addr string) *http.Client {
 
 func print_usage() {
     fmt.Print(`
-gopm create <package>:
-    this wil create a <package.json> file containing information for your
-    package, you should modify this file to fill in the fields manually, then
-    run 'gopm publish <package.json>' to upload the information to the index
-    server.
+indexer:
 
 options:
-    -f, -force      force overwrite existing file
+    -socks5-proxy   use a socks5 proxy to access the net
     -h, -help       show help info
 
 `)
