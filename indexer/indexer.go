@@ -45,16 +45,14 @@ func main() {
     flag.Usage = print_usage
     flag.Parse()
 
+    client := get_http_client(proxy_addr)
+    page := get_dashboard_page(client)
+
+    fmt.Print(page)
+}
+
+func get_dashboard_page(client *http.Client) string {
     request := "http://godashboard.appspot.com/"
-
-    client := http.DefaultClient
-
-    // check if using a proxy
-    if proxy_addr != "" {
-        proxy := socks.DialSocksProxy(socks.SOCKS5, proxy_addr)
-        transport := &http.Transport{Dial: proxy}
-        client = &http.Client{Transport: transport}
-    }
 
     // request the page
     response, err := client.Get(request)
@@ -82,7 +80,21 @@ func main() {
         log.Fatalln(err)
     }
 
-    fmt.Print(string(page))
+    return string(page)
+}
+
+func get_http_client(proxy_addr string) *http.Client {
+    client := http.DefaultClient
+
+    // check if using a proxy
+    if proxy_addr != "" {
+        proxy := socks.DialSocksProxy(socks.SOCKS5, proxy_addr)
+        transport := &http.Transport{Dial: proxy}
+        client = &http.Client{Transport: transport}
+    }
+
+    return client
+
 }
 
 func print_usage() {
